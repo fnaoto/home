@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: setup user
+        run: |
+          git config --global user.email "f.naoto832+github@gmail.com"
+          git config --global user.name "fnaoto"
       - name: Install
         run: yarn
       - name: Deploy
