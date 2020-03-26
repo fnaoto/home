@@ -4,16 +4,18 @@ on:
   push:
     branches:
       - master
+      - test/*
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: setup user
+      - name: GitHub
         run: |
-          git config --global user.email "f.naoto832+github@gmail.com"
-          git config --global user.name "fnaoto"
+          git config user.name "fnaoto"
+          git config user.email "f.naoto832+github@gmail.com"
+          git remote set-url origin https://fnaoto:${{ secrets.GITHUB_TOKEN }}@github.com/fnaoto/home
       - name: Install
         run: yarn
       - name: Deploy
