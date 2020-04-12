@@ -1,41 +1,51 @@
-import React from "react";
-import '../App.css';
-import Header from './Header';
-import Footer from './Footer';
-import GitHub from "../png/github.png";
-import Qiita from "../png/qiita.png";
-import Wantedly from "../png/wantedly.png";
+/**
+ * Layout component that queries for data
+ * with Gatsby's useStaticQuery component
+ *
+ * See: https://www.gatsbyjs.org/docs/use-static-query/
+ */
 
-export default class Layout extends React.Component {
-  constructor() {
-    super();
-    this.state = { name: "Hello" };
-  }
-  render() {
-    setTimeout(
-      () => { this.setState({ name: "I am Naoto, Fukuda" }); }
-      , 1000);
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h2><Header /></h2>
-          <h1>{this.state.name}</h1>
-          <h4>
-            <a href="https://qiita.com/fnaoto">
-              <img src={Qiita} className="App-logo" alt="@Qiita" />
-            </a>
-            <a href="https://www.wantedly.com/users/47203885">
-              <img src={Wantedly} className="App-logo" alt="@Wantedly" />
-            </a>
-            <a href="https://github.com/fnaoto">
-              <img src={GitHub} className="App-logo" alt="@GitHub" />
-            </a>
-          </h4>
-        </header>
+import React from "react"
+import PropTypes from "prop-types"
+import { useStaticQuery, graphql } from "gatsby"
+
+import Header from "./header"
+import "./layout.css"
+
+const Layout = ({ children }) => {
+  const data = useStaticQuery(graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `)
+
+  return (
+    <>
+      <Header siteTitle={data.site.siteMetadata.title} />
+      <div
+        style={{
+          margin: `0 auto`,
+          maxWidth: 960,
+          padding: `0 1.0875rem 1.45rem`,
+        }}
+      >
+        <main>{children}</main>
         <footer>
-          <Footer />
+          © {new Date().getFullYear()}, Built with
+          {` `}
+          <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
       </div>
-    );
-  }
+    </>
+  )
 }
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
+export default Layout
