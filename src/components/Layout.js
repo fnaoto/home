@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import '../App.css';
 import Header from './Header';
 import Footer from './Footer';
@@ -6,7 +6,7 @@ import GitHub from "../png/github.png";
 import Qiita from "../png/qiita.png";
 import Wantedly from "../png/wantedly.png";
 
-export default class Layout extends React.Component {
+export default class Layout extends Component {
   constructor() {
     super();
     this.state = { name: "Hello" };
